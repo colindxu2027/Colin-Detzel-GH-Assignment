@@ -1,6 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-xavier-navy: #002147;
+  --color-xavier-blue: #003366;
+  --color-xavier-silver: #A2AAAD;
+  
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
 
 @layer base {
   body {

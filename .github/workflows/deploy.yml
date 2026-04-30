@@ -20,14 +20,12 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
-        working-directory: ./Colin Detzel GH Assignment
       - name: Build
         run: npm run build
-        working-directory: ./Colin Detzel GH Assignment
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './Colin Detzel GH Assignment/dist'
+          path: './dist'
 
   deploy:
     needs: build

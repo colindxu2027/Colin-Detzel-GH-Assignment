@@ -58,7 +58,7 @@ const HomePage = () => (
           <Globe className="w-5 h-5" /> Travel
         </h3>
         <p className="text-slate-600 text-sm leading-relaxed">
-          Traveler to 25 states and soon to be 3 countries, with an upcoming trip to France and Spain this summer.
+          Traveled to 25 states and soon to be 3 countries, with an upcoming trip to France and Spain this summer.
         </p>
       </div>
     </div>

@@ -2,28 +2,33 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Home, User, BookOpen, Star, History as HistoryIcon, Menu, X, MapPin, Briefcase, GraduationCap, Utensils, Mountain, Image as ImageIcon, ChevronDown, ChevronUp, Globe, Target } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-// Import local assets
-import heroImage from './assets/professional-headshot.jpg';
-import xavierCampus from './assets/xavier-university-campus.jpg';
-import cintasCenter from './assets/cintas-center-gameday.jpg';
-import covCathCampus from './assets/covington-catholic-campus.jpg';
-import skyline from './assets/cincinnati-skyline.jpg';
-import redsLogo from './assets/cincinnati-reds-logo.jpg';
-import gabp from './assets/great-american-ballpark.jpg';
-import aflacLogo from './assets/aflac-logo.jpg';
-import aflacExp from './assets/aflac-professional-experience.jpg';
-import mailwiseLogo from './assets/mailwise-solutions-logo.jpg';
-import mailwiseExp from './assets/mailwise-solutions-team-acheivement.jpg';
-import rockyMtns from './assets/rocky-mountains-jpg.jpg';
-import appalachianMtns from './assets/appalachian-mountains.jpg';
-import travelMtns from './assets/traveling-mountains.jpg';
-import masters from './assets/me-at-masters.jpg';
-import stats from './assets/my-physical-stats.jpg';
-import family from './assets/my-family.jpg';
-import turtle from './assets/pet-turtle.jpg';
-import food from './assets/favorite-food.jpg';
+// GitHub Image Base URL
+const GITHUB_ASSETS = 'https://raw.githubusercontent.com/colindxu2027/Colin-Detzel-GH-Assignment/main/src/assets';
 
-// Reusable Image Placeholder Component (Now as a fallback)
+// Image Mapping
+const images = {
+  hero: `${GITHUB_ASSETS}/professional-headshot.jpg`,
+  xavier: `${GITHUB_ASSETS}/xavier-university-campus.jpg`,
+  cintas: `${GITHUB_ASSETS}/cintas-center-gameday.jpg`,
+  covCath: `${GITHUB_ASSETS}/covington-catholic-campus.jpg`,
+  skyline: `${GITHUB_ASSETS}/cincinnati-skyline.jpg`,
+  redsLogo: `${GITHUB_ASSETS}/cincinnati-reds-logo.jpg`,
+  gabp: `${GITHUB_ASSETS}/great-american-ballpark.jpg`,
+  aflacLogo: `${GITHUB_ASSETS}/aflac-logo.jpg`,
+  aflacExp: `${GITHUB_ASSETS}/aflac-professional-experience.jpg`,
+  mailwiseLogo: `${GITHUB_ASSETS}/mailwise-solutions-logo.jpg`,
+  mailwiseExp: `${GITHUB_ASSETS}/mailwise-solutions-team-acheivement.jpg`,
+  rocky: `${GITHUB_ASSETS}/rocky-mountains-jpg.jpg`,
+  appalachian: `${GITHUB_ASSETS}/appalachian-mountains.jpg`,
+  travelMtns: `${GITHUB_ASSETS}/traveling-mountains.jpg`,
+  masters: `${GITHUB_ASSETS}/me-at-masters.jpg`,
+  stats: `${GITHUB_ASSETS}/my-physical-stats.jpg`,
+  family: `${GITHUB_ASSETS}/my-family.jpg`,
+  turtle: `${GITHUB_ASSETS}/pet-turtle.jpg`,
+  food: `${GITHUB_ASSETS}/favorite-food.jpg`
+};
+
+// Reusable Image Placeholder Component
 const ImagePlaceholder = ({ label, className = "h-48" }) => (
   <div className={`w-full ${className} bg-slate-200 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center text-slate-400 gap-2 group hover:bg-slate-100 hover:border-xavier-navy hover:text-xavier-navy transition-all`}>
     <ImageIcon className="w-8 h-8 opacity-50" />
@@ -33,11 +38,11 @@ const ImagePlaceholder = ({ label, className = "h-48" }) => (
 
 // Standard Image Component with Error Handling
 const SafeImage = ({ src, alt, className }) => (
-  <div className="relative w-full h-full">
+  <div className="relative w-full h-full overflow-hidden rounded-xl">
     <img 
       src={src} 
       alt={alt} 
-      className={`${className} object-cover`}
+      className={`${className} w-full h-full object-cover transition-transform duration-500 hover:scale-105`}
       onError={(e) => {
         e.target.style.display = 'none';
         e.target.nextSibling.style.display = 'flex';
@@ -65,7 +70,7 @@ const HomePage = () => (
           </p>
         </div>
         <div className="p-8 md:p-12 flex justify-center h-[400px] md:h-[500px]">
-          <SafeImage src={heroImage} alt="Colin Detzel Professional Headshot" className="w-full h-full rounded-3xl shadow-2xl border-4 border-white/10" />
+          <SafeImage src={images.hero} alt="Colin Detzel Professional Headshot" className="w-full h-full rounded-3xl shadow-2xl border-4 border-white/10" />
         </div>
       </div>
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
@@ -116,8 +121,8 @@ const AboutPage = () => (
         </section>
 
         <div className="grid grid-cols-2 gap-4 h-64">
-          <SafeImage src={cintasCenter} alt="Cintas Center Gameday" className="rounded-xl shadow-md" />
-          <SafeImage src={skyline} alt="Cincinnati Skyline View" className="rounded-xl shadow-md" />
+          <SafeImage src={images.cintas} alt="Cintas Center Gameday" className="rounded-xl shadow-md" />
+          <SafeImage src={images.skyline} alt="Cincinnati Skyline View" className="rounded-xl shadow-md" />
         </div>
 
         <section className="space-y-4">
@@ -141,10 +146,10 @@ const AboutPage = () => (
             <ImageIcon className="w-5 h-5 text-xavier-silver" /> Exploration
           </h3>
           <div className="h-40">
-            <SafeImage src={rockyMtns} alt="Rocky Mountains Snapshot" className="rounded-lg border-2 border-white/20" />
+            <SafeImage src={images.rocky} alt="Rocky Mountains Snapshot" className="rounded-lg border-2 border-white/20" />
           </div>
           <div className="h-40">
-            <SafeImage src={appalachianMtns} alt="Appalachian Trail Photo" className="rounded-lg border-2 border-white/20" />
+            <SafeImage src={images.appalachian} alt="Appalachian Trail Photo" className="rounded-lg border-2 border-white/20" />
           </div>
           <p className="text-sm text-xavier-silver leading-relaxed italic text-center">
             Upcoming: Paris & Barcelona
@@ -164,8 +169,8 @@ const HistoryPage = () => {
       company: "Cincinnati Reds", 
       role: "Gameday Sales & Service Intern", 
       tag: "CURRENT",
-      logo: redsLogo,
-      img: gabp,
+      logo: images.redsLogo,
+      img: images.gabp,
       caption: "Great American Ball Park",
       details: "In my current role with the MLB's Cincinnati Reds, I am continuing to build my teamwork and sales skills while focusing on customer service."
     },
@@ -173,8 +178,8 @@ const HistoryPage = () => {
       id: 'aflac',
       company: "Aflac", 
       role: "Sales Intern | Summer 2024",
-      logo: aflacLogo,
-      img: aflacExp,
+      logo: images.aflacLogo,
+      img: images.aflacExp,
       caption: "Professional Experience at Aflac",
       details: "Interning at Aflac introduced me to the world of sales and taught me plenty of valuable lessons in goal-setting and cold outreach."
     },
@@ -182,8 +187,8 @@ const HistoryPage = () => {
       id: 'mailwise',
       company: "Mailwise Solutions", 
       role: "Utility Worker | 2023 - Present",
-      logo: mailwiseLogo,
-      img: mailwiseExp,
+      logo: images.mailwiseLogo,
+      img: images.mailwiseExp,
       caption: "Team Achievement at Mailwise",
       details: "Sharpening organizational skills at this family-owned business. Successfully helped package over 1 million pieces of mail in Oct 2025."
     }
@@ -204,7 +209,7 @@ const HistoryPage = () => {
           <div className="space-y-12">
             <div className="group">
               <div className="h-48 mb-4">
-                <SafeImage src={xavierCampus} alt="Xavier University Campus" className="rounded-xl group-hover:shadow-lg transition-all" />
+                <SafeImage src={images.xavier} alt="Xavier University Campus" className="rounded-xl group-hover:shadow-lg transition-all" />
               </div>
               <h3 className="text-xl font-bold text-xavier-navy">Xavier University</h3>
               <p className="text-slate-500 font-medium italic">B.S. Business Management</p>
@@ -213,7 +218,7 @@ const HistoryPage = () => {
 
             <div className="group">
               <div className="h-48 mb-4">
-                <SafeImage src={covCathCampus} alt="Covington Catholic Campus" className="rounded-xl group-hover:shadow-lg transition-all" />
+                <SafeImage src={images.covCath} alt="Covington Catholic Campus" className="rounded-xl group-hover:shadow-lg transition-all" />
               </div>
               <h3 className="text-xl font-bold text-slate-700">Covington Catholic High School</h3>
               <p className="text-slate-500 font-medium italic">Park Hills, Kentucky</p>
@@ -275,12 +280,12 @@ const FunFactsPage = () => (
     
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {[
-        { title: "Physical Stats", desc: "I am a very tall person, 6'6\" to be exact, and I also wear size 16 shoes!", img: stats, icon: <User className="text-xavier-navy" /> },
-        { title: "Family", desc: "Oldest of three. My brother is a rising sophomore at Xavier too!", img: family, icon: <HistoryIcon className="text-xavier-navy" /> },
-        { title: "Golf Achievements", desc: "I've broken 80 on 18 holes and attended the Masters twice!", img: masters, icon: <Target className="text-xavier-navy" /> },
-        { title: "Favorite Meal", desc: "Cheeseburger with a fried egg and bacon + ice-cold lemonade.", img: food, icon: <Utensils className="text-xavier-navy" /> },
-        { title: "Unique Childhood", desc: "My siblings and I raised a pet turtle together growing up.", img: turtle, icon: <Mountain className="text-xavier-navy" /> },
-        { title: "Travel Reach", desc: "I have stood in both the Rocky Mountains and the Appalachians.", img: travelMtns, icon: <Globe className="text-xavier-navy" /> }
+        { title: "Physical Stats", desc: "I am a very tall person, 6'6\" to be exact, and I also wear size 16 shoes!", img: images.stats, icon: <User className="text-xavier-navy" /> },
+        { title: "Family", desc: "Oldest of three. My brother is a rising sophomore at Xavier too!", img: images.family, icon: <HistoryIcon className="text-xavier-navy" /> },
+        { title: "Golf Achievements", desc: "I've broken 80 on 18 holes and attended the Masters twice!", img: images.masters, icon: <Target className="text-xavier-navy" /> },
+        { title: "Favorite Meal", desc: "Cheeseburger with a fried egg and bacon + ice-cold lemonade.", img: images.food, icon: <Utensils className="text-xavier-navy" /> },
+        { title: "Unique Childhood", desc: "My siblings and I raised a pet turtle together growing up.", img: images.turtle, icon: <Mountain className="text-xavier-navy" /> },
+        { title: "Travel Reach", desc: "I have stood in both the Rocky Mountains and the Appalachians.", img: images.travelMtns, icon: <Globe className="text-xavier-navy" /> }
       ].map((fact, i) => (
         <div key={i} className="bg-white overflow-hidden rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all group">
           <div className="h-48">

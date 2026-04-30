@@ -318,7 +318,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <Router>
+    <Router basename="/Colin-Detzel-GH-Assignment">
       <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-xavier-navy selection:text-white font-sans">
         <nav className="bg-xavier-navy text-white sticky top-0 z-50 shadow-lg border-b border-white/5">

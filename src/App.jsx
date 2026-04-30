@@ -1,18 +1,34 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Home, User, BookOpen, Star, History as HistoryIcon, Menu, X, MapPin, Briefcase, GraduationCap, Utensils, Mountain } from 'lucide-react';
+import { Home, User, BookOpen, Star, History as HistoryIcon, Menu, X, MapPin, Briefcase, GraduationCap, Utensils, Mountain, Image as ImageIcon } from 'lucide-react';
 import { useState } from 'react';
+
+// Reusable Image Placeholder Component
+const ImagePlaceholder = ({ label, className = "h-48" }) => (
+  <div className={`w-full ${className} bg-slate-200 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center text-slate-400 gap-2 group hover:bg-slate-100 hover:border-xavier-navy hover:text-xavier-navy transition-all`}>
+    <ImageIcon className="w-8 h-8 opacity-50" />
+    <span className="text-xs font-bold uppercase tracking-widest">{label}</span>
+  </div>
+);
 
 // Page Components
 const HomePage = () => (
-  <div className="space-y-8 animate-fadeIn">
-    <section className="relative overflow-hidden text-center py-24 bg-xavier-navy text-white rounded-2xl shadow-xl px-4">
-      <div className="relative z-10">
-        <h1 className="text-5xl md:text-8xl mb-6 font-serif">Colin Detzel</h1>
-        <p className="text-xl md:text-3xl text-xavier-silver max-w-3xl mx-auto font-light italic leading-relaxed">
-          "Xavier University Class of 2027 • Aspiring Sports & Real Estate Professional"
-        </p>
+  <div className="space-y-12 animate-fadeIn">
+    <section className="relative overflow-hidden bg-xavier-navy text-white rounded-3xl shadow-2xl">
+      <div className="grid md:grid-cols-2 items-center">
+        <div className="p-8 md:p-16 space-y-6 z-10">
+          <h1 className="text-5xl md:text-7xl font-serif">Colin Detzel</h1>
+          <p className="text-xl md:text-2xl text-xavier-silver font-light italic leading-relaxed">
+            Xavier University Class of 2027
+          </p>
+          <div className="h-1 w-20 bg-xavier-silver"></div>
+          <p className="text-lg text-slate-300">
+            Aspiring Sports & Real Estate Professional based in Cincinnati, Ohio.
+          </p>
+        </div>
+        <div className="p-8 md:p-12">
+          <ImagePlaceholder label="Professional Headshot" className="h-80 md:h-96 shadow-2xl" />
+        </div>
       </div>
-      {/* Decorative background element */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
     </section>
     
@@ -50,42 +66,44 @@ const HomePage = () => (
 
 const AboutPage = () => (
   <div className="space-y-16 animate-fadeIn">
-    <header className="border-b-2 border-xavier-navy pb-6">
+    <header className="border-b-2 border-xavier-navy pb-6 flex justify-between items-end">
       <h1 className="text-4xl text-xavier-navy font-serif">About Me & My Passions</h1>
+      <span className="text-slate-400 text-sm hidden md:block">Cincinnati → The World</span>
     </header>
     
     <div className="grid lg:grid-cols-3 gap-12">
-      <div className="lg:col-span-2 space-y-6 text-slate-700 leading-relaxed text-lg">
+      <div className="lg:col-span-2 space-y-8 text-slate-700 leading-relaxed text-lg">
         <p>
-          I have been a huge Xavier basketball fan and have been going to games for as long as I can remember, so getting to attend Xavier now is a full circle moment for me! Growing up in Cincinnati has been an incredible experience, though I hope to one day move somewhere where the weather is warm year-round.
+          I have been a huge Xavier basketball fan and have been going to games for as long as I can remember, so getting to attend Xavier now is a full circle moment for me!
         </p>
+        
+        <div className="grid grid-cols-2 gap-4">
+          <ImagePlaceholder label="Xavier Gameday Photo" className="h-64" />
+          <ImagePlaceholder label="Cincinnati Skyline" className="h-64" />
+        </div>
+
         <p>
           Sports have been the heartbeat of my life. Whether it's a high-stakes Cincinnati Bengals game or a casual pickup basketball session with friends, I find energy and community in athletic competition.
         </p>
-        <div className="bg-slate-100 p-6 rounded-lg border-l-4 border-xavier-navy italic">
-          "I have been blessed enough to travel to almost 25 states and soon to be 3 countries. I am lucky enough to be traveling to France and Spain in a matter of weeks!"
+        
+        <div className="bg-slate-100 p-8 rounded-2xl border-l-8 border-xavier-navy italic relative overflow-hidden">
+          <div className="relative z-10">
+            "I have been blessed enough to travel to almost 25 states and soon to be 3 countries. I am lucky enough to be traveling to France and Spain in a matter of weeks!"
+          </div>
+          <MapPin className="absolute right-4 bottom-4 w-24 h-24 text-xavier-navy/5 -rotate-12" />
         </div>
       </div>
 
-      <div className="space-y-6">
-        <div className="bg-xavier-navy text-white p-8 rounded-xl shadow-lg">
-          <h3 className="text-xl font-serif mb-4 flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-xavier-silver" /> Exploration
+      <div className="space-y-8">
+        <div className="bg-xavier-navy text-white p-8 rounded-2xl shadow-lg space-y-6">
+          <h3 className="text-xl font-serif flex items-center gap-2">
+            <ImageIcon className="w-5 h-5 text-xavier-silver" /> Travel Gallery
           </h3>
-          <p className="text-sm text-xavier-silver leading-relaxed">
-            Travel is one of my greatest teachers. Exploring diverse landscapes—from the Rocky Mountains to the Appalachians—has shaped my perspective on the world.
+          <ImagePlaceholder label="Rocky Mountains" className="h-40 bg-white/10 border-white/20 text-white/40" />
+          <ImagePlaceholder label="Appalachians" className="h-40 bg-white/10 border-white/20 text-white/40" />
+          <p className="text-sm text-xavier-silver leading-relaxed italic text-center">
+            Upcoming: Paris & Barcelona 2026
           </p>
-        </div>
-        
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 text-center">
-            <BookOpen className="mx-auto mb-2 text-xavier-navy" />
-            <span className="text-xs font-bold uppercase tracking-wider">Learning</span>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 text-center">
-            <Star className="mx-auto mb-2 text-xavier-navy" />
-            <span className="text-xs font-bold uppercase tracking-wider">Sports</span>
-          </div>
         </div>
       </div>
     </div>
@@ -98,69 +116,69 @@ const HistoryPage = () => (
       <h1 className="text-4xl text-xavier-navy font-serif">Academic & Professional Journey</h1>
     </header>
     
-    <div className="grid md:grid-cols-2 gap-12">
+    <div className="grid md:grid-cols-2 gap-16">
       {/* Education */}
-      <div className="space-y-8">
-        <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800">
-          <GraduationCap className="text-xavier-navy" /> Education
+      <div className="space-y-12">
+        <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800 border-l-4 border-xavier-navy pl-4">
+          Education
         </h2>
         
-        <div className="relative pl-8 border-l-2 border-xavier-navy space-y-8">
-          <div className="relative">
-            <div className="absolute w-4 h-4 bg-xavier-navy rounded-full -left-[41px] top-1.5 border-4 border-white"></div>
+        <div className="space-y-12">
+          <div className="group">
+            <ImagePlaceholder label="Xavier University Campus" className="h-40 mb-4 group-hover:border-xavier-navy transition-all" />
             <h3 className="text-xl font-bold text-xavier-navy">Xavier University</h3>
             <p className="text-slate-500 font-medium italic">B.S. Business Management | Minor: Political Economy</p>
-            <p className="text-sm text-slate-400 font-bold mb-2">Class of 2027</p>
-            <p className="text-slate-600 leading-relaxed">
-              Focusing on leadership and economic structures. Aiming for a Spring 2027 graduation.
-            </p>
+            <p className="text-sm text-slate-400 font-bold">Class of 2027</p>
           </div>
 
-          <div className="relative">
-            <div className="absolute w-4 h-4 bg-xavier-silver rounded-full -left-[41px] top-1.5 border-4 border-white"></div>
+          <div className="group">
+            <ImagePlaceholder label="Covington Catholic Photo" className="h-40 mb-4" />
             <h3 className="text-xl font-bold text-slate-700">Covington Catholic High School</h3>
             <p className="text-slate-500 font-medium italic">Park Hills, KY</p>
-            <p className="text-sm text-slate-400 font-bold mb-2">2019 - 2023</p>
-            <p className="text-slate-600 leading-relaxed">
-              Four transformative years that built the foundation for my lifelong friendships and academic drive.
-            </p>
+            <p className="text-sm text-slate-400 font-bold">2019 - 2023</p>
           </div>
         </div>
       </div>
 
       {/* Experience */}
-      <div className="space-y-8">
-        <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800">
-          <Briefcase className="text-xavier-navy" /> Experience
+      <div className="space-y-12">
+        <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800 border-l-4 border-xavier-navy pl-4">
+          Experience
         </h2>
         
         <div className="space-y-8">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:border-xavier-navy transition-colors">
-            <div className="flex justify-between items-start mb-2">
-              <h3 className="text-lg font-bold text-xavier-navy uppercase tracking-wide">Cincinnati Reds</h3>
-              <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">CURRENT</span>
+          {[
+            { 
+              company: "Cincinnati Reds", 
+              role: "Gameday Sales & Service Intern", 
+              tag: "CURRENT",
+              img: "Great American Ball Park" 
+            },
+            { 
+              company: "Aflac", 
+              role: "Sales Intern | Summer 2024",
+              img: "Professional Experience" 
+            },
+            { 
+              company: "Mailwise Solutions", 
+              role: "Utility Worker | 2023 - Present",
+              img: "Team Achievement" 
+            }
+          ].map((job, i) => (
+            <div key={i} className="flex gap-4 p-4 rounded-xl hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-slate-100">
+              <div className="w-24 h-24 flex-shrink-0">
+                <ImagePlaceholder label="Logo" className="h-24 text-[8px]" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-xavier-navy text-sm uppercase tracking-wider">{job.company}</h3>
+                  {job.tag && <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">{job.tag}</span>}
+                </div>
+                <p className="text-xs text-slate-500 italic">{job.role}</p>
+                <p className="text-[11px] text-slate-400 leading-tight pt-1">Click to view role details and key achievements.</p>
+              </div>
             </div>
-            <p className="text-slate-500 italic text-sm mb-3">Gameday Sales and Service Intern (MLB)</p>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Honing teamwork and sales skills while ensuring every fan has a premium gameday experience.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-            <h3 className="text-lg font-bold text-xavier-navy uppercase tracking-wide">Aflac</h3>
-            <p className="text-slate-500 italic text-sm mb-3">Sales Intern | Summer 2024</p>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Pushed outside my comfort zone to master cold outreach and goal-setting strategies in the insurance sector.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-            <h3 className="text-lg font-bold text-xavier-navy uppercase tracking-wide">Mailwise Solutions</h3>
-            <p className="text-slate-500 italic text-sm mb-3">Utility Worker | Mar 2023 - Present</p>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Key achievement: Helped package and distribute over 1 million pieces of mail in Oct 2025 for this family-owned business.
-            </p>
-          </div>
+          ))}
         </div>
       </div>
     </div>
@@ -176,40 +194,53 @@ const FunFactsPage = () => (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {[
         { 
-          title: "Physical Stat", 
-          desc: "I stand tall at 6'6\" and wear size 16 shoes!", 
-          icon: <User className="text-xavier-navy" /> 
-        },
-        { 
           title: "The Masters", 
           desc: "I've had the incredible luck of attending the Masters Golf Tournament twice.", 
+          img: "Augusta National Photo",
           icon: <Star className="text-xavier-navy" /> 
         },
         { 
-          title: "Family", 
-          desc: "Oldest of three. My brother is a rising sophomore at Xavier too!", 
-          icon: <HistoryIcon className="text-xavier-navy" /> 
+          title: "Physical Stat", 
+          desc: "I stand tall at 6'6\" and wear size 16 shoes!", 
+          img: "Tall Perspective Photo",
+          icon: <User className="text-xavier-navy" /> 
         },
         { 
-          title: "Favorite Meal", 
-          desc: "A cheeseburger with a fried egg and bacon, paired with ice-cold lemonade.", 
-          icon: <Utensils className="text-xavier-navy" /> 
-        },
-        { 
-          title: "Golf Achievement", 
-          desc: "I've broken 80 on 18 holes. If you're up for a round, let's connect!", 
+          title: "Golf Life", 
+          desc: "I've broken 80 on 18 holes. Always down for a round!", 
+          img: "Golf Course Action Shot",
           icon: <BookOpen className="text-xavier-navy" /> 
         },
         { 
-          title: "Unique Pet", 
-          desc: "My siblings and I raised a turtle together growing up.", 
+          title: "Favorite Meal", 
+          desc: "Cheeseburger with a fried egg and bacon + ice-cold lemonade.", 
+          img: "Delicious Burger Photo",
+          icon: <Utensils className="text-xavier-navy" /> 
+        },
+        { 
+          title: "Family First", 
+          desc: "Oldest of three. My brother is a fellow Musketeer!", 
+          img: "Sibling Photo at Xavier",
+          icon: <HistoryIcon className="text-xavier-navy" /> 
+        },
+        { 
+          title: "Unique Roots", 
+          desc: "Raised a pet turtle with my siblings growing up.", 
+          img: "Pet Turtle Photo",
           icon: <Mountain className="text-xavier-navy" /> 
         }
       ].map((fact, i) => (
-        <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all flex flex-col items-center text-center space-y-4">
-          <div className="p-3 bg-slate-50 rounded-full">{fact.icon}</div>
-          <h3 className="text-lg font-serif text-xavier-navy">{fact.title}</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">{fact.desc}</p>
+        <div key={i} className="bg-white overflow-hidden rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all group">
+          <ImagePlaceholder label={fact.img} className="h-40 rounded-none border-0 border-b" />
+          <div className="p-6 space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-xavier-navy group-hover:text-white transition-colors">
+                {fact.icon}
+              </div>
+              <h3 className="text-lg font-serif text-xavier-navy">{fact.title}</h3>
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed">{fact.desc}</p>
+          </div>
         </div>
       ))}
     </div>
@@ -221,7 +252,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-xavier-navy selection:text-white">
+      <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-xavier-navy selection:text-white font-sans">
         {/* Navigation */}
         <nav className="bg-xavier-navy text-white sticky top-0 z-50 shadow-lg border-b border-white/5">
           <div className="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
@@ -229,7 +260,6 @@ function App() {
               CD
             </Link>
             
-            {/* Desktop Menu */}
             <div className="hidden md:flex gap-10 font-medium uppercase text-xs tracking-[0.2em]">
               <Link to="/" className="hover:text-xavier-silver transition-colors border-b-2 border-transparent hover:border-xavier-silver pb-1">Home</Link>
               <Link to="/about" className="hover:text-xavier-silver transition-colors border-b-2 border-transparent hover:border-xavier-silver pb-1">About</Link>
@@ -237,13 +267,11 @@ function App() {
               <Link to="/facts" className="hover:text-xavier-silver transition-colors border-b-2 border-transparent hover:border-xavier-silver pb-1">Fun Facts</Link>
             </div>
 
-            {/* Mobile Menu Toggle */}
             <button className="md:hidden p-2 hover:bg-white/10 rounded-lg" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
 
-          {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden bg-xavier-blue px-6 py-8 space-y-6 border-t border-white/10 animate-slideDown shadow-2xl">
               <Link to="/" className="block text-lg hover:text-xavier-silver" onClick={() => setIsMenuOpen(false)}>Home</Link>

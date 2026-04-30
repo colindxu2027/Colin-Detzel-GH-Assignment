@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Home, User, BookOpen, Star, History as HistoryIcon, Menu, X, MapPin, Briefcase, GraduationCap, Utensils, Mountain, Image as ImageIcon } from 'lucide-react';
-import { useState } from 'react';
+import { Home, User, BookOpen, Star, History as HistoryIcon, Menu, X, MapPin, Briefcase, GraduationCap, Utensils, Mountain, Image as ImageIcon, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 // Reusable Image Placeholder Component
 const ImagePlaceholder = ({ label, className = "h-48" }) => (
   <div className={`w-full ${className} bg-slate-200 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center text-slate-400 gap-2 group hover:bg-slate-100 hover:border-xavier-navy hover:text-xavier-navy transition-all`}>
     <ImageIcon className="w-8 h-8 opacity-50" />
-    <span className="text-xs font-bold uppercase tracking-widest">{label}</span>
+    <span className="text-xs font-bold uppercase tracking-widest text-center px-2">{label}</span>
   </div>
 );
 
@@ -15,12 +15,12 @@ const HomePage = () => (
   <div className="space-y-12 animate-fadeIn">
     <section className="relative overflow-hidden bg-xavier-navy text-white rounded-3xl shadow-2xl">
       <div className="grid md:grid-cols-2 items-center">
-        <div className="p-8 md:p-16 space-y-6 z-10">
+        <div className="p-8 md:p-16 space-y-6 z-10 text-center md:text-left">
           <h1 className="text-5xl md:text-7xl font-serif">Colin Detzel</h1>
           <p className="text-xl md:text-2xl text-xavier-silver font-light italic leading-relaxed">
             Xavier University Class of 2027
           </p>
-          <div className="h-1 w-20 bg-xavier-silver"></div>
+          <div className="h-1 w-20 bg-xavier-silver mx-auto md:mx-0"></div>
           <p className="text-lg text-slate-300">
             Aspiring Sports & Real Estate Professional based in Cincinnati, Ohio.
           </p>
@@ -33,15 +33,16 @@ const HomePage = () => (
     </section>
     
     <div className="grid md:grid-cols-2 gap-8">
-      <div className="bg-white p-8 rounded-xl shadow-md border-t-4 border-xavier-navy group hover:shadow-lg transition-all">
+      <Link to="/about" className="bg-white p-8 rounded-xl shadow-md border-t-4 border-xavier-navy group hover:shadow-xl transition-all block">
         <h2 className="text-2xl mb-4 flex items-center gap-2 font-serif text-xavier-navy">
           <User className="w-6 h-6" /> Personal Profile
         </h2>
         <p className="text-slate-600 leading-relaxed">
-          Born and raised in Cincinnati, I am a rising senior at Xavier University with a deep-rooted passion for our community and sports culture. From lifelong fan to current student, my journey has come full circle.
+          Born and raised in Cincinnati, I am a rising senior at Xavier University with a deep-rooted passion for our community and sports culture.
         </p>
-      </div>
-      <div className="bg-white p-8 rounded-xl shadow-md border-t-4 border-xavier-navy group hover:shadow-lg transition-all">
+        <span className="mt-4 inline-block text-xavier-navy font-bold text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform">Learn more →</span>
+      </Link>
+      <Link to="/history" className="bg-white p-8 rounded-xl shadow-md border-t-4 border-xavier-navy group hover:shadow-xl transition-all block">
         <h2 className="text-2xl mb-4 flex items-center gap-2 font-serif text-xavier-navy">
           <Star className="w-6 h-6" /> Professional Focus
         </h2>
@@ -54,12 +55,9 @@ const HomePage = () => (
             <div className="w-1.5 h-1.5 rounded-full bg-xavier-navy mt-2"></div>
             <span>Sports Industry Enthusiast</span>
           </li>
-          <li className="flex items-start gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-xavier-navy mt-2"></div>
-            <span>Sales & Customer Service Specialist</span>
-          </li>
         </ul>
-      </div>
+        <span className="mt-4 inline-block text-xavier-navy font-bold text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform">View Experience →</span>
+      </Link>
     </div>
   </div>
 );
@@ -110,80 +108,105 @@ const AboutPage = () => (
   </div>
 );
 
-const HistoryPage = () => (
-  <div className="space-y-16 animate-fadeIn">
-    <header className="border-b-2 border-xavier-navy pb-6">
-      <h1 className="text-4xl text-xavier-navy font-serif">Academic & Professional Journey</h1>
-    </header>
-    
-    <div className="grid md:grid-cols-2 gap-16">
-      {/* Education */}
-      <div className="space-y-12">
-        <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800 border-l-4 border-xavier-navy pl-4">
-          Education
-        </h2>
-        
-        <div className="space-y-12">
-          <div className="group">
-            <ImagePlaceholder label="Xavier University Campus" className="h-40 mb-4 group-hover:border-xavier-navy transition-all" />
-            <h3 className="text-xl font-bold text-xavier-navy">Xavier University</h3>
-            <p className="text-slate-500 font-medium italic">B.S. Business Management | Minor: Political Economy</p>
-            <p className="text-sm text-slate-400 font-bold">Class of 2027</p>
-          </div>
+const HistoryPage = () => {
+  const [expandedJob, setExpandedJob] = useState(null);
 
-          <div className="group">
-            <ImagePlaceholder label="Covington Catholic Photo" className="h-40 mb-4" />
-            <h3 className="text-xl font-bold text-slate-700">Covington Catholic High School</h3>
-            <p className="text-slate-500 font-medium italic">Park Hills, KY</p>
-            <p className="text-sm text-slate-400 font-bold">2019 - 2023</p>
+  const jobs = [
+    { 
+      id: 'reds',
+      company: "Cincinnati Reds", 
+      role: "Gameday Sales & Service Intern", 
+      tag: "CURRENT",
+      img: "Great American Ball Park",
+      details: "Building teamwork and sales skills while focusing on customer service. Ensuring every fan's experience is memorable as the season continues!"
+    },
+    { 
+      id: 'aflac',
+      company: "Aflac", 
+      role: "Sales Intern | Summer 2024",
+      img: "Professional Experience",
+      details: "Mastered the world of sales, set and achieved high-level goals, and pushed boundaries by engaging directly with potential clients about insurance needs."
+    },
+    { 
+      id: 'mailwise',
+      company: "Mailwise Solutions", 
+      role: "Utility Worker | 2023 - Present",
+      img: "Team Achievement",
+      details: "Sharpening organizational and teamwork skills in direct mail advertising. Successfully helped package and distribute over 1 million pieces of mail in October 2025."
+    }
+  ];
+
+  return (
+    <div className="space-y-16 animate-fadeIn">
+      <header className="border-b-2 border-xavier-navy pb-6">
+        <h1 className="text-4xl text-xavier-navy font-serif">Academic & Professional Journey</h1>
+      </header>
+      
+      <div className="grid md:grid-cols-2 gap-16">
+        {/* Education */}
+        <div className="space-y-12">
+          <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800 border-l-4 border-xavier-navy pl-4">
+            Education
+          </h2>
+          
+          <div className="space-y-12">
+            <div className="group">
+              <ImagePlaceholder label="Xavier University Campus" className="h-40 mb-4 group-hover:border-xavier-navy transition-all" />
+              <h3 className="text-xl font-bold text-xavier-navy">Xavier University</h3>
+              <p className="text-slate-500 font-medium italic">B.S. Business Management | Minor: Political Economy</p>
+              <p className="text-sm text-slate-400 font-bold">Class of 2027</p>
+            </div>
+
+            <div className="group">
+              <ImagePlaceholder label="Covington Catholic Photo" className="h-40 mb-4" />
+              <h3 className="text-xl font-bold text-slate-700">Covington Catholic High School</h3>
+              <p className="text-slate-500 font-medium italic">Park Hills, KY</p>
+              <p className="text-sm text-slate-400 font-bold">2019 - 2023</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Experience */}
-      <div className="space-y-12">
-        <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800 border-l-4 border-xavier-navy pl-4">
-          Experience
-        </h2>
-        
-        <div className="space-y-8">
-          {[
-            { 
-              company: "Cincinnati Reds", 
-              role: "Gameday Sales & Service Intern", 
-              tag: "CURRENT",
-              img: "Great American Ball Park" 
-            },
-            { 
-              company: "Aflac", 
-              role: "Sales Intern | Summer 2024",
-              img: "Professional Experience" 
-            },
-            { 
-              company: "Mailwise Solutions", 
-              role: "Utility Worker | 2023 - Present",
-              img: "Team Achievement" 
-            }
-          ].map((job, i) => (
-            <div key={i} className="flex gap-4 p-4 rounded-xl hover:bg-white hover:shadow-md transition-all border border-transparent hover:border-slate-100">
-              <div className="w-24 h-24 flex-shrink-0">
-                <ImagePlaceholder label="Logo" className="h-24 text-[8px]" />
-              </div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-xavier-navy text-sm uppercase tracking-wider">{job.company}</h3>
-                  {job.tag && <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">{job.tag}</span>}
+        {/* Experience */}
+        <div className="space-y-12">
+          <h2 className="text-2xl font-serif flex items-center gap-3 text-slate-800 border-l-4 border-xavier-navy pl-4">
+            Experience
+          </h2>
+          
+          <div className="space-y-4">
+            <p className="text-slate-400 text-xs italic mb-4">Click each card to expand details</p>
+            {jobs.map((job) => (
+              <button 
+                key={job.id} 
+                onClick={() => setExpandedJob(expandedJob === job.id ? null : job.id)}
+                className={`w-full text-left flex gap-4 p-4 rounded-xl transition-all border ${expandedJob === job.id ? 'bg-white shadow-lg border-xavier-navy' : 'hover:bg-white hover:shadow-md border-transparent hover:border-slate-100'}`}
+              >
+                <div className="w-20 h-20 flex-shrink-0">
+                  <ImagePlaceholder label="Logo" className="h-20 text-[8px]" />
                 </div>
-                <p className="text-xs text-slate-500 italic">{job.role}</p>
-                <p className="text-[11px] text-slate-400 leading-tight pt-1">Click to view role details and key achievements.</p>
-              </div>
-            </div>
-          ))}
+                <div className="flex-grow space-y-1">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-bold text-xavier-navy text-sm uppercase tracking-wider">{job.company}</h3>
+                      {job.tag && <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">{job.tag}</span>}
+                    </div>
+                    {expandedJob === job.id ? <ChevronUp className="w-4 h-4 text-xavier-navy" /> : <ChevronDown className="w-4 h-4 text-slate-300" />}
+                  </div>
+                  <p className="text-xs text-slate-500 italic">{job.role}</p>
+                  
+                  {expandedJob === job.id && (
+                    <div className="mt-4 pt-4 border-t border-slate-100 animate-slideDown">
+                      <p className="text-sm text-slate-600 leading-relaxed italic">{job.details}</p>
+                    </div>
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const FunFactsPage = () => (
   <div className="space-y-16 animate-fadeIn">
@@ -247,11 +270,20 @@ const FunFactsPage = () => (
   </div>
 );
 
+function ScrollToTop() {
+  const { pathname } = window.location;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-xavier-navy selection:text-white font-sans">
         {/* Navigation */}
         <nav className="bg-xavier-navy text-white sticky top-0 z-50 shadow-lg border-b border-white/5">
